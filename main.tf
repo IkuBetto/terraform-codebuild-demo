@@ -4,6 +4,10 @@ provider "aws" {
 
 resource "aws_s3_bucket" "demo_bucket" {
   bucket = "terraform-codebuild-demo-${random_string.bucket_suffix.result}"
+  tags = {
+    Environment = "Dev"
+    Project     = "Terraform Demo"
+  }
 }
 
 resource "random_string" "bucket_suffix" {
