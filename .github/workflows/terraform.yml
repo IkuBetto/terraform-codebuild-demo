@@ -1,32 +1,14 @@
-name: "Terraform CI/CD"
+name: Sample
 
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    branches: 
+      - main
+  workflow_dispatch:
 
 jobs:
-  terraform:
-    name: "Terraform"
-    runs-on: codebuild-terraform-github-runner-${{ github.run_id }}-${{ github.run_attempt }}
+  print-hello-world:
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v2
-        with:
-          terraform_version: 1.0.0
-
-      - name: Terraform Init
-        id: init
-        run: terraform init
-
-      - name: Terraform Plan
-        id: plan
-        run: terraform plan -no-color
-        
-      - name: Terraform Apply
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-        run: terraform apply -auto-approve
+      - name: execute echo command
+        run: echo "Hello World!"
